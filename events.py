@@ -42,6 +42,11 @@ def main():
 		assignment_names = driver.find_elements_by_name('asnActionLink') # contains assignment names
 		deadlines = driver.find_elements_by_class_name('highlight') #contains deadlines for those assignments
 
+		#removes 'late' from list
+		for j in range(len(assignment_names)):
+			if deadlines[j].text == '- late':
+				del deadlines[j]
+
 		x = 0
 		for j in range(len(assignment_names)):
 
@@ -81,41 +86,22 @@ def get_event(assignment_names, deadlines,j,x):
 	print(deadlines[j].text)
 	print('')
 
-	if deadlines[j].text == '- late':
-					
-		event['summary'] = assignment_names[j].text
-		date_time = deadlines[x+1].text
-		#Find format of darte from other formats
-		matches = datefinder.find_dates(date_time)
-		matches = list(matches)
-
-		#Creating time format
-		start_time = matches[0]
-		end_time = start_time + timedelta(minutes = 30)
-
-		event['start']['dateTime'] = start_time.strftime("%Y-%m-%dT%H:%M:%S")
-	
-		event['end']['dateTime'] = end_time.strftime("%Y-%m-%dT%H:%M:%S")
-
-		x+=2
-
-	else:
 		
-		event['summary'] = assignment_names[j].text
-		date_time = deadlines[x].text
-		#Find format of date from other formats
-		matches = datefinder.find_dates(date_time)
-		matches = list(matches)
+	event['summary'] = assignment_names[j].text
+	date_time = deadlines[x].text
+	#Find format of date from other formats
+	matches = datefinder.find_dates(date_time)
+	matches = list(matches)
 
-		#Creating time format
-		start_time = matches[0]
-		end_time = start_time + timedelta(minutes = 30)
+	#Creating time format
+	start_time = matches[0]
+	end_time = start_time + timedelta(minutes = 30)
 
-		event['start']['dateTime'] = start_time.strftime("%Y-%m-%dT%H:%M:%S")
+	event['start']['dateTime'] = start_time.strftime("%Y-%m-%dT%H:%M:%S")
 
-		event['end']['dateTime'] = end_time.strftime("%Y-%m-%dT%H:%M:%S")
+	event['end']['dateTime'] = end_time.strftime("%Y-%m-%dT%H:%M:%S")
 
-		x+=1
+	x+=1
 
 	return event,x
 
