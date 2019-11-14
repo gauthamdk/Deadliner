@@ -26,6 +26,11 @@ def main():
 
 	search = driver.find_elements_by_class_name('link-container') #link-container contains classes
 
+	expand = driver.find_element_by_xpath('//*[@title="Expand/collapse tool navigation"]')
+
+	if expand.get_attribute("aria-pressed") == 'true':
+		expand.click()
+
 
 	for i in range(1,len(search)):
 
@@ -33,6 +38,12 @@ def main():
 		class_name = search[i].text
 		search[i].click()
 		driver.implicitly_wait(10)
+
+		
+		expand = driver.find_element_by_xpath('//*[@title="Expand/collapse tool navigation"]')
+
+		if expand.get_attribute("aria-pressed") == 'true':
+			expand.click()
 
 
 		assignment = driver.find_element_by_link_text('Assignments') #menuitem contains assignments tab
