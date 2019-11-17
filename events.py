@@ -39,12 +39,6 @@ def main():
 		search[i].click()
 		driver.implicitly_wait(10)
 
-		
-		expand = driver.find_element_by_xpath('//*[@title="Expand/collapse tool navigation"]')
-
-		if expand.get_attribute("aria-pressed") == 'true':
-			expand.click()
-
 
 		assignment = driver.find_element_by_link_text('Assignments') #menuitem contains assignments tab
 		driver.implicitly_wait(10)
@@ -93,12 +87,10 @@ def get_event(assignment_names, deadlines,j,x):
 				  },
 				}
 
-	print(assignment_names[j].text)
-	print(deadlines[j].text)
-	print('')
+	# print(assignment_names[j].text)
+	# print(deadlines[j].text)
+	# print('')
 
-		
-	event['summary'] = assignment_names[j].text
 	date_time = deadlines[x].text
 	#Find format of date from other formats
 	matches = datefinder.find_dates(date_time)
@@ -106,13 +98,19 @@ def get_event(assignment_names, deadlines,j,x):
 
 	#Creating time format
 	start_time = matches[0]
-	end_time = start_time + timedelta(minutes = 30)
 
-	event['start']['dateTime'] = start_time.strftime("%Y-%m-%dT%H:%M:%S")
+	if (start_time.strftime("%Y-%m-%dT%H:%M:%S") > datetime.today().strftime("%Y-%m-%dT%H:%M:%S")):
 
-	event['end']['dateTime'] = end_time.strftime("%Y-%m-%dT%H:%M:%S")
+			
+		event['summary'] = assignment_names[j].text
+		
+		end_time = start_time + timedelta(minutes = 30)
 
-	x+=1
+		event['start']['dateTime'] = start_time.strftime("%Y-%m-%dT%H:%M:%S")
 
-	return event,x
+		event['end']['dateTime'] = end_time.strftime("%Y-%m-%dT%H:%M:%S")
+
+		x+=1
+
+		return event,x
 
