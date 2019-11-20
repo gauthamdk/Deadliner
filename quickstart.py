@@ -66,6 +66,7 @@ def create_event(deadlines_list, deadlines_present_summary,deadlines_present_tim
 
     for x in range(len(deadlines_list)):
         #Checks if event exists already 
+        
         if (deadlines_list_summary[x] not in deadlines_present_summary) and (deadlines_list_time[x] not in deadlines_present_time):
             service.events().insert(calendarId='primary', body=deadlines_list[x]).execute()
 

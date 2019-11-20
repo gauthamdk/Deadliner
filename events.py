@@ -57,8 +57,8 @@ def main():
 
 			event,x = get_event(assignment_names,deadlines,j,x) 
 			# print(event)
-			
-			list_of_events.append(event)
+			if event != None:
+				list_of_events.append(event)
 
 		driver.implicitly_wait(10)
 
@@ -101,9 +101,11 @@ def get_event(assignment_names, deadlines,j,x):
 
 	if (start_time.strftime("%Y-%m-%dT%H:%M:%S") > datetime.today().strftime("%Y-%m-%dT%H:%M:%S")):
 
-			
+		
 		event['summary'] = assignment_names[j].text
 		
+		print(event['summary'],deadlines[x].text, '\n')
+
 		end_time = start_time + timedelta(minutes = 30)
 
 		event['start']['dateTime'] = start_time.strftime("%Y-%m-%dT%H:%M:%S")
@@ -113,4 +115,7 @@ def get_event(assignment_names, deadlines,j,x):
 		x+=1
 
 		return event,x
+	else:
+		x+=1
+		return None,x
 
