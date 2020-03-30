@@ -16,9 +16,9 @@ def main():
 
 	url = "https://newclasses.nyu.edu/portal"
 
-	chromedriver = "/Users/gautham/Downloads/chromedriver" #Location of chrome driver
+	chromedriver = "/Users/gautham/Google Drive (gdk244@nyu.edu)/Coding/Deadliner/Deadliner/chromedriver" #Location of chrome driver
 
-	driver = webdriver.Chrome(chromedriver)
+	driver = webdriver.Chrome(executable_path = chromedriver)
 	driver.get(url)
 
 	# try:
@@ -37,35 +37,39 @@ def main():
 		search = driver.find_elements_by_class_name('link-container')
 		class_name = search[i].text
 		search[i].click()
-		driver.implicitly_wait(10)
+		driver.implicitly_wait(5)
 
+		try:
+			assignment = driver.find_element_by_link_text('Assignments') #menuitem contains assignments tab
+			driver.implicitly_wait(5)
+			assignment.click()
 
-		assignment = driver.find_element_by_link_text('Assignments') #menuitem contains assignments tab
-		driver.implicitly_wait(10)
-		assignment.click()
+			assignment_names = driver.find_elements_by_name('asnActionLink') # contains assignment names
+			deadlines = driver.find_elements_by_class_name('highlight') #contains deadlines for those assignments
 
-		assignment_names = driver.find_elements_by_name('asnActionLink') # contains assignment names
-		deadlines = driver.find_elements_by_class_name('highlight') #contains deadlines for those assignments
+			#removes 'late' from list
+			for j in range(len(assignment_names)):
+				if deadlines[j].text == '- late':
+					del deadlines[j]
 
-		#removes 'late' from list
-		for j in range(len(assignment_names)):
-			if deadlines[j].text == '- late':
-				del deadlines[j]
+			x = 0
+			for j in range(len(assignment_names)):
+				event,x = get_event(assignment_names,deadlines, class_name,j,x) 
+				# print(event)
+				if event != None:
+					list_of_events.append(event)
 
-		x = 0
-		for j in range(len(assignment_names)):
+			driver.implicitly_wait(5)
 
-			event,x = get_event(assignment_names,deadlines,j,x) 
-			# print(event)
-			if event != None:
-				list_of_events.append(event)
-
-		driver.implicitly_wait(10)
+		except:
+			print("No assignments tab")
+		finally:
+			continue
 
 	return list_of_events
 
 
-def get_event(assignment_names, deadlines,j,x):
+def get_event(assignment_names, deadlines,class_name,j,x):
 
 	event = {
 				  'summary': 'Google I/O 2015',
@@ -102,7 +106,7 @@ def get_event(assignment_names, deadlines,j,x):
 	if (start_time.strftime("%Y-%m-%dT%H:%M:%S") > datetime.today().strftime("%Y-%m-%dT%H:%M:%S")):
 
 		
-		event['summary'] = assignment_names[j].text
+		event['summary'] = assignment_names[j].text + class_name[:12] 
 		
 		print(event['summary'],deadlines[x].text, '\n')
 

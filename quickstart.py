@@ -59,16 +59,18 @@ def main():
     create_event(deadlines_list,deadlines_present_summary, deadlines_present_time,service)
 
 
-def create_event(deadlines_list, deadlines_present_summary,deadlines_present_time,service):
+def create_event(deadlines_list, deadlines_present_summary,deadlines_present_time,service): 
     deadlines_list_summary = [deadlines_list[i]['summary'] for i in range(len(deadlines_list))]
 
     deadlines_list_time = [deadlines_list[i]['start']['dateTime'] for i in range(len(deadlines_list))]
 
     for x in range(len(deadlines_list)):
         #Checks if event exists already 
-        
+        # print(deadlines_present_summary, deadlines_present_time)
+        print(deadlines_list_summary, deadlines_list_time)
         if (deadlines_list_summary[x] not in deadlines_present_summary) and (deadlines_list_time[x] not in deadlines_present_time):
             service.events().insert(calendarId='primary', body=deadlines_list[x]).execute()
+            print("Event created")
 
 
 
