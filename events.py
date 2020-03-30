@@ -9,6 +9,8 @@ from selenium.webdriver.common.keys import Keys
 import re
 from datetime import datetime, timedelta
 import datefinder 
+from details import password, netid
+from time import sleep
 
 def main():
 
@@ -22,7 +24,25 @@ def main():
 	driver.get(url)
 
 	# try:
-	element = WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.ID, "more-sites-menu"))) #waits for 100 secs until this ID is present in the webpage
+ #waits for 100 secs until this ID is present in the webpage
+
+	netid_form = driver.find_element_by_id('netid')
+	netid_form.send_keys(netid)
+
+	password_form = driver.find_element_by_id('password')
+	password_form.send_keys(password)
+
+	login_btn = driver.find_element_by_xpath('//*[@id="login"]/button')
+	login_btn.click()
+
+	sleep(5)
+
+	driver.switch_to_frame('duo_iframe')
+
+	push_btn = driver.find_element_by_xpath('//*[@id="auth_methods"]/fieldset/div[1]/button')
+	push_btn.click()
+
+	element = WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.ID, "more-sites-menu")))
 
 	search = driver.find_elements_by_class_name('link-container') #link-container contains classes
 
