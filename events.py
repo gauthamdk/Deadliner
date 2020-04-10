@@ -18,7 +18,7 @@ def main():
 
 	url = "https://newclasses.nyu.edu/portal"
 
-	chromedriver = "/Users/gautham/Google Drive (gdk244@nyu.edu)/Coding/Deadliner/Deadliner/chromedriver" #Location of chrome driver
+	chromedriver = "/Users/gautham/Google Drive (gdk244@nyu.edu)/Coding/Deadliner/chromedriver" #Location of chrome driver
 
 	driver = webdriver.Chrome(executable_path = chromedriver)
 	driver.get(url)
@@ -83,7 +83,6 @@ def main():
 
 		except:
 			print("No assignments tab")
-		finally:
 			continue
 
 	return list_of_events
@@ -127,8 +126,6 @@ def get_event(assignment_names, deadlines,class_name,j,x):
 
 		
 		event['summary'] = assignment_names[j].text + class_name[:12] 
-		
-		print(event['summary'],deadlines[x].text, '\n')
 
 		end_time = start_time + timedelta(minutes = 30)
 
