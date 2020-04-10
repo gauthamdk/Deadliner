@@ -20,7 +20,11 @@ def main():
 
 	chromedriver = "/Users/gautham/Google Drive (gdk244@nyu.edu)/Coding/Deadliner/chromedriver" #Location of chrome driver
 
-	driver = webdriver.Chrome(executable_path = chromedriver)
+	try:
+		driver = webdriver.Chrome(executable_path = chromedriver)
+	except:
+		driver = webdriver.Firefox()
+		
 	driver.get(url)
 
 	# try:
