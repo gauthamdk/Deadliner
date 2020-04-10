@@ -18,13 +18,12 @@ def main():
 
 	url = "https://newclasses.nyu.edu/portal"
 
-	chromedriver = "/Users/gautham/Google Drive (gdk244@nyu.edu)/Coding/Deadliner/chromedriver" #Location of chrome driver
+	chromedriver = #Path to chrome driver
 
 	try:
 		driver = webdriver.Chrome(executable_path = chromedriver)
 	except:
 		driver = webdriver.Firefox()
-		
 	driver.get(url)
 
 	# try:

@@ -1,2 +1,2 @@
-netid = #netid in quotes
-password = #password in quotes
+netid = #NetID here in quotes
+password = #Password here in quotes
