@@ -28,7 +28,7 @@ setup(
 'regex==2020.4.4',
 'requests==2.23.0',
 'requests-oauthlib==1.3.0',
-'rsa==4.0',
+'rsa==4.1',
 'selenium==3.141.0',
 'six==1.14.0',
 'uritemplate==3.0.1',
