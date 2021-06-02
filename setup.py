@@ -32,5 +32,5 @@ setup(
 'selenium==3.141.0',
 'six==1.14.0',
 'uritemplate==3.0.1',
-'urllib3==1.25.8']
+'urllib3==1.26.5']
 )
