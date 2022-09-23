@@ -20,7 +20,7 @@ setup(
 'httplib2==0.19.0',
 'idna==2.9',
 'oauthlib==3.1.0',
-'protobuf==3.11.3',
+'protobuf==3.18.3',
 'pyasn1==0.4.8',
 'pyasn1-modules==0.2.8',
 'python-dateutil==2.8.1',
