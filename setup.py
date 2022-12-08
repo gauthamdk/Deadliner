@@ -8,7 +8,7 @@ setup(
     author_email='gdk244@nyu.edu', 
     scripts=['events.py', 'quickstart.py'],
     install_requires=['cachetools==4.1.0',
-'certifi==2020.4.5.1',
+'certifi==2022.12.7',
 'chardet==3.0.4',
 'datefinder==0.7.0',
 'google-api-core==1.16.0',
